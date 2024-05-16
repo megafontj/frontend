@@ -1,6 +1,8 @@
 import {Link, Route, Routes} from "react-router-dom";
 import LoginPage from "./pages/auth/login/LoginPage.jsx";
 import SignUpPage from "./pages/auth/signup/SignUpPage.jsx";
+import {ToastContainer , toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
     return (<div className='flex max-w-6xl mx-auto'>
@@ -12,6 +14,7 @@ export default function App() {
                 <Route path='/login' element={<LoginPage />} />
                 <Route path='/register' element={<SignUpPage />} />
             </Routes>
+            <ToastContainer />
         </div>
     );
 }
