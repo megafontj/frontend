@@ -3,7 +3,7 @@ import axios from 'axios';
 import {getToken} from "../utils/token.js";
 
 const http = axios.create({
-    baseURL: 'http://localhost:8081/api/',
+    baseURL: `${import.meta.env.VITE_API_GATEWAY_URL}/api/`,
     timeout: 30000,
     headers: {
         Accept: 'application/json',

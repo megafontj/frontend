@@ -11,7 +11,7 @@ import {useAuth} from "../../../contexts/auth.context.jsx";
 const LoginPage = () => {
 	const { register, handleSubmit, formState: { errors }} = useForm();
 	const navigate = useNavigate();
-	const { authorize } = useAuth();
+	const { authorize} = useAuth();
 
 	const onFormSubmit = async (data) => {
 		try {
