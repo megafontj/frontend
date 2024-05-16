@@ -5,21 +5,26 @@ import {useForm} from "react-hook-form";
 import http from "../../../api/http.js";
 import {toast} from "react-toastify";
 import {Link, useNavigate} from "react-router-dom";
+import {setTokenToStorage} from "../../../utils/token.js";
+import {useAuth} from "../../../contexts/auth.context.jsx";
 
 const LoginPage = () => {
-	const { register, handleSubmit, formState: { errors }} = useForm()
+	const { register, handleSubmit, formState: { errors }} = useForm();
 	const navigate = useNavigate();
+	const { authorize } = useAuth();
 
 	const onFormSubmit = async (data) => {
-		await http.post('auth/login', data).then((res) =>  {
-				toast.success('Добро пожоловать!');
-				navigate('/')
-			},
-			(res) => {
-				const data = res.response.data;
-				toast.error(data.message)
-			})
-	}
+		try {
+			const response = await http.post('auth/login', data);
+			toast.success('Добро пожаловать!');
+			setTokenToStorage(response.data.data.token);
+			authorize(true);
+			navigate('/');
+		} catch (error) {
+			const data = error.response.data;
+			toast.error(data.message);
+		}
+	};
 
 	return (
 		<div className='max-w-screen-xl mx-auto flex h-screen'>
