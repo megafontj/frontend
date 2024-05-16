@@ -18,7 +18,7 @@ const LoginPage = () => {
 			const response = await http.post('auth/login', data);
 			toast.success('Добро пожаловать!');
 			setTokenToStorage(response.data.data.token);
-			authorize(true);
+			authorize();
 			navigate('/');
 		} catch (error) {
 			const data = error.response.data;

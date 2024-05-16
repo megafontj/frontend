@@ -9,10 +9,12 @@ import {useAuth} from "../../contexts/auth.context.jsx";
 import {useEffect} from "react";
 import http from "../../api/http.js";
 import {API_ROUTES} from "../../api/api_routes.js";
+import {removeTokenFromStorage} from "../../utils/token.js";
+import {toast} from "react-toastify";
 
 
 const Sidebar = () => {
-	const {account, setAccountInfo} = useAuth();
+	const {account, setAccountInfo, unAuthorize} = useAuth();
 
 	useEffect(() => {
 		const getAccount = async () => {
@@ -21,6 +23,16 @@ const Sidebar = () => {
 		}
 		getAccount();
 	}, []);
+
+	const handleLogout = async () => {
+		const response = await http.post(API_ROUTES.LOGOUT)
+		if (response.status === 200) {
+			unAuthorize();
+			removeTokenFromStorage();
+			return;
+		}
+		toast('Что-то пошел не так!');
+	}
 
 	return (
 		<div className='md:flex-[2_2_0] w-18 max-w-52'>
@@ -58,7 +70,9 @@ const Sidebar = () => {
 							<span className='text-lg hidden md:block'>Профиль</span>
 						</Link>
 					</li>
-					<li className='flex ml-1 gap-3 justify-center md:justify-start cursor-pointer'>
+					<li
+						onClick={handleLogout}
+						className='flex ml-1 gap-3 justify-center md:justify-start cursor-pointer'>
 						<BiLogOut className='w-6 h-6' />
 						<span className='text-lg hidden md:block'>Выход</span>
 					</li>

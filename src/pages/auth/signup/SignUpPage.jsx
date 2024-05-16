@@ -11,17 +11,13 @@ import {toast} from "react-toastify";
 
 
 const SignUpPage = () => {
-
-	const [isLoading, setIsLoading] = useState(false);
 	const { register, handleSubmit, formState: { errors }} = useForm()
 	const navigate = useNavigate();
 
 	const onFormSubmit = async (data) => {
-		setIsLoading(true)
-		await http.post('auth/register', data).then((res) =>  {
+		await http.post('auth/register', data).then(() =>  {
 				toast.success('Вы успешно создали аккаунт!')
 				navigate('/login')
-				setIsLoading(false);
 		},
 			(res) => {
 				const data = res.response.data;

@@ -16,6 +16,12 @@ function authReducer(state, action) {
                 isAuthorized: true,
             };
         }
+        case 'SET_UNAUTHORIZED': {
+            return {
+                ...state,
+                isAuthorized: false
+            }
+        }
         case 'SET_ACCOUNT_INFO': {
             return {
                 ...state,
@@ -31,13 +37,15 @@ export function AuthProvider(props) {
     const [state, dispatch] = useReducer(authReducer, initialState);
 
     const authorize = () => dispatch({ type: 'SET_AUTHORIZED' });
+    const unAuthorize = () => dispatch({ type: 'SET_UNAUTHORIZED' });
     const setAccountInfo = (value) => dispatch({ type: "SET_ACCOUNT_INFO", value: value });
 
     const value = useMemo(() => {
         return {
             ...state,
             authorize,
-            setAccountInfo,
+            unAuthorize,
+            setAccountInfo
         }
     }, [state]);
 

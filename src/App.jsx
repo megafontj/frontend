@@ -10,7 +10,7 @@ function App() {
 
     const { isAuthorized } = useAuth();
 
-    return (<div className='flex max-w-6xl mx-auto text-white'>
+    return (<div className='flex max-w-6xl mx-auto'>
             {isAuthorized && <Sidebar />}
             <Routes>
                 <Route path='/'  element={isAuthorized ? <h1>Home</h1> : <Navigate to='/login' />}/>
