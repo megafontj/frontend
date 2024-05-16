@@ -36,10 +36,13 @@ const Sidebar = () => {
 
 	return (
 		<div className='md:flex-[2_2_0] w-18 max-w-52'>
-			<div className='sticky top-0 left-0 h-screen flex flex-col border-r border-gray-700 w-20 md:w-full'>
+			<div className='sticky top-0 left-0 h-screen flex flex-col border-r border-gray-700 text-white w-20 md:w-full'>
 				<Link to='/' className='flex justify-center items-center md:justify-start'>
 					<XSvg className='px-2 w-12 h-12 rounded-full fill-white hover:bg-stone-900' />
-					<span className='font-bold text-lg'>{account?.name}</span>
+					<div className='font-bold flex flex-col'>
+						<span className='text-lg'>{account?.name}</span>
+						<span className='text-xs text-gray-400'>@{account?.username}</span>
+					</div>
 				</Link>
 				<ul className='flex flex-col gap-3 mt-4'>
 					<li className='flex justify-center md:justify-start'>
@@ -70,29 +73,19 @@ const Sidebar = () => {
 							<span className='text-lg hidden md:block'>Профиль</span>
 						</Link>
 					</li>
-					<li
-						onClick={handleLogout}
-						className='flex ml-1 gap-3 justify-center md:justify-start cursor-pointer'>
-						<BiLogOut className='w-6 h-6' />
-						<span className='text-lg hidden md:block'>Выход</span>
-					</li>
+
 				</ul>
 				{account && (
 					<Link
 						to={`/profile/`}
 						className='mt-auto mb-10 flex gap-2 items-start transition-all duration-300 hover:bg-[#181818] py-2 px-4 rounded-full'
 					>
-						<div className='avatar hidden md:inline-flex'>
-							<div className='w-8 rounded-full'>
-								<img src={"/avatar-placeholder.png"} />
-							</div>
-						</div>
-						<div className='flex justify-between flex-1'>
-							<div className='hidden md:block'>
-								<p className='text-white font-bold text-sm w-20 truncate'>{account?.name}</p>
-								<p className='text-slate-500 text-sm'>@{account?.username}</p>
-							</div>
-						</div>
+						<span
+							onClick={handleLogout}
+							className='flex ml-1 gap-3 justify-center md:justify-start cursor-pointer'>
+							<BiLogOut className='w-6 h-6' />
+							<span className='text-lg hidden md:block'>Выход</span>
+						</span>
 					</Link>
 				)}
 			</div>
