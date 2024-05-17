@@ -8,6 +8,9 @@ import Sidebar from "./components/common/Sidebar.jsx";
 import ProfilePage from "./pages/profile/ProfilePage.jsx";
 import {RightSide} from "./components/common/RightSide.jsx";
 import {Home} from "./pages/Home.jsx";
+import {MyFollowersPage} from "./pages/profile/MyFollowersPage.jsx";
+import {IamFollowingPage} from "./pages/profile/IamFollowingPage.jsx";
+import {NotificationPage} from "./pages/notification/NotificationPage.jsx";
 
 function App() {
 
@@ -20,6 +23,9 @@ function App() {
                 <Route path='/login' element={isAuthorized ?  <Navigate to='/' /> : <LoginPage />} />
                 <Route path='/register' element={isAuthorized ?  <Navigate to='/' /> : <SignUpPage />} />
                 <Route path='/profile' element={isAuthorized ?  <ProfilePage /> : <LoginPage />} />
+                <Route path='/profile/following' element={isAuthorized ?  <IamFollowingPage /> : <LoginPage />} />
+                <Route path='/profile/followers' element={isAuthorized ?  <MyFollowersPage /> : <LoginPage />} />
+                <Route path='/profile/notifications' element={isAuthorized ?  <NotificationPage /> : <LoginPage />} />
             </Routes>
             {isAuthorized && <RightSide />}
             <ToastContainer />

@@ -18,6 +18,6 @@ export const  FollwoingTweets = () => {
     }, []);
 
     return (<div className='blok'>
-        {tweets?.map(item => (<Tweet item={item} showOwner={true} getTweets={getFollowingTweets}/>))}
+        {tweets?.map(item => (<Tweet key={item.id} item={item} showOwner={true} getTweets={getFollowingTweets}/>))}
     </div>)
 }
