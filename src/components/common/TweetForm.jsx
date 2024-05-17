@@ -3,13 +3,19 @@ import {API_ROUTES} from "../../api/api_routes.js";
 import {useState} from "react";
 import {toast} from "react-toastify";
 
-export const TweetForm = () => {
+export const TweetForm = ({updateTweets}) => {
     const [content, setContent] = useState();
+
     const createTweet = async () => {
+        if (!content) {
+            alert("Запольните форма!");
+            return;
+        }
         const response = await http.post(`${API_ROUTES.TWEETS}`, {content});
         if (response.status === 200) {
             toast('Вы успешно создали твит');
             setContent('');
+            updateTweets()
             return;
         }
         toast(response.data?.data?.message)
