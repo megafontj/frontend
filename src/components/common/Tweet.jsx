@@ -41,11 +41,18 @@ export const Tweet = ({item, getTweets}) => {
                                rows={6}
                                onChange={(e) => setTweetContent(e.target.value)}
                                defaultValue={item.content}/>
-                    <button
-                        onClick={ () => editTweet(item) }
-                        className='btn rounded-full btn-primary text-white'>
-                        Сохранить
-                    </button>
+                    <div className='flex gap-2'>
+                        <button
+                            onClick={ () => editTweet(item) }
+                            className='btn rounded-full btn-primary text-white'>
+                            Сохранить
+                        </button>
+                        <button
+                            onClick={ () => setEditMode(false) }
+                            className='btn rounded-full btn-cancel text-black'>
+                            Отменить
+                        </button>
+                    </div>
                 </div>
             )}
         </div>

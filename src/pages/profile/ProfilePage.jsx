@@ -29,9 +29,9 @@ const ProfilePage = () => {
 	}, []);
 
 	return (
-		<div className='flex-[3_3_0] text-white my-5 p-4 border-r border-gray-700'>
+		<div className='flex-[3_3_0] text-white border-r border-gray-700'>
 			{/* HEADER */}
-			<div className='flex justify-between'>
+			<div className='flex justify-between  my-5 p-4 border-b border-white'>
 				<div>
 					<h2 className='text-2xl font-bold'>{account?.name}</h2>
 					<span className='text-xs'>@{account?.username}</span>
@@ -40,8 +40,8 @@ const ProfilePage = () => {
 					</div>
 					<br/>
 					<div className='flex gap-5'>
-						<span className='text-xs'>Подписчики {account?.followers_count}</span>
-						<span className='text-xs'>Подписан {account?.following_count}</span>
+						<Link to='followers' className='text-xs btn btn-sm bg-green-200'>Подписчики {account?.followers_count}</Link>
+						<Link to='following' className='text-xs btn btn-sm bg-green-200'>Подписан {account?.following_count}</Link>
 					</div>
 				</div>
 				<div>
@@ -51,8 +51,10 @@ const ProfilePage = () => {
 					</button>
 				</div>
 			</div>
-
-			{tweets.length > 0 && tweets.map(item => (<Tweet key={item.id} item={item} getTweets={getTweets}/>))}
+			<div className='py-1 px-4'>
+				<h2 className='text-2xl font-bold'>Ваши посты</h2>
+				{tweets.length > 0 && tweets.map(item => (<Tweet key={item.id} item={item} getTweets={getTweets}/>))}
+			</div>
 		</div>
 	);
 };
