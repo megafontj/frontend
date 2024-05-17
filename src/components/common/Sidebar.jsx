@@ -76,8 +76,7 @@ const Sidebar = () => {
 
 				</ul>
 				{account && (
-					<Link
-						to={`/profile/`}
+					<button
 						className='mt-auto mb-10 flex gap-2 items-start transition-all duration-300 hover:bg-[#181818] py-2 px-4 rounded-full'
 					>
 						<span
@@ -86,7 +85,7 @@ const Sidebar = () => {
 							<BiLogOut className='w-6 h-6' />
 							<span className='text-lg hidden md:block'>Выход</span>
 						</span>
-					</Link>
+					</button>
 				)}
 			</div>
 		</div>
