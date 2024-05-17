@@ -7,15 +7,52 @@ import { IoCalendarOutline } from "react-icons/io5";
 import { FaLink } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import {useAuth} from "../../contexts/auth.context.jsx";
+import {BiCalendar} from "react-icons/bi";
+import moment from "moment";
+import http from "../../api/http.js";
+import {API_ROUTES} from "../../api/api_routes.js";
+import {Tweet} from "../../components/common/Tweet.jsx";
 
 const ProfilePage = () => {
 	const {account} = useAuth();
+	const [tweets, setTweets] = useState([]);
+
+	const getTweets = async () => {
+		const response = await http.post(API_ROUTES.TWEET_SEARCH, {
+			filter: {user_id: account?.id}
+		});
+		setTweets(response.data?.data)
+	}
+
+	useEffect(() => {
+		getTweets();
+	}, []);
+
 	return (
-		<div className='flex-[3_3_0] border-r border-gray-700'>
+		<div className='flex-[3_3_0] text-white my-5 p-4 border-r border-gray-700'>
 			{/* HEADER */}
-			<div className='flex flex-col'>
-				<h2>{account?.name}</h2>
+			<div className='flex justify-between'>
+				<div>
+					<h2 className='text-2xl font-bold'>{account?.name}</h2>
+					<span className='text-xs'>@{account?.username}</span>
+					<div className='flex flex-col mt-5'>
+						<span className='flex items-center gap-1'><BiCalendar /> Создан в {moment(account?.created_at).format('D-MM-Y')}</span>
+					</div>
+					<br/>
+					<div className='flex gap-5'>
+						<span className='text-xs'>Подписчики {account?.followers_count}</span>
+						<span className='text-xs'>Подписан {account?.following_count}</span>
+					</div>
+				</div>
+				<div>
+					<button className='flex items-center gap-2 text-primary'>
+						<MdEdit />
+						Редактировать
+					</button>
+				</div>
 			</div>
+
+			{tweets.length > 0 && tweets.map(item => (<Tweet key={item.id} item={item} getTweets={getTweets}/>))}
 		</div>
 	);
 };
